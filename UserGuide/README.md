@@ -83,3 +83,5 @@ Finish testing the Firmware and Software. Start follow the guides below:
    3. 'd' for Demo 3 (only support on v3.0)
    4. 'esc' to quit the Demo
 
+Note !!! switch from Demo 2 to Demo 1 need ensure the left arm is on the left or top (if on the buttom will lead to crash ~_~ you may need calibrate it again!)
+
