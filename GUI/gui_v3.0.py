@@ -4,32 +4,51 @@ import pyautogui as pag
 import serial
 import math
 
+# Add canvas for demo 1
 canvas = np.zeros((800, 1280, 3), np.uint8)
+# strate line
 cv2.line(canvas, (300, 200), (980, 200), (255, 150, 255), 10)
+# curve
 for i in range(300, 980):
     cv2.circle(canvas, (i, 600 + int(80 * np.sin((i-300)/100))), 3, (150, 255, 255),3)
 
+# Add canvas for demo 2
 canvas2 = np.zeros((800, 1280, 3), np.uint8)
+# circle for knob
 cv2.circle(canvas2, (640, 400), 200, (150, 255, 255), 10)
+# mraker for knob
 for i in range(24):
     cv2.line(canvas2, (640 + int(160 * np.sin(np.pi * i / 12)), 400 + int(160 * np.cos(np.pi * i / 12))), (640 + int(180 * np.sin(np.pi * i / 12)), 400 + int(180 * np.cos(np.pi * i / 12))), (255, 150, 255) ,4)
 
+# Add canvas for demo 3
 canvas3 = np.zeros((800, 1280, 3), np.uint8)
+# circle for knob
 cv2.circle(canvas3, (320, 400), 150, (150, 255, 255), 10)
+# square
 cv2.line(canvas3, (960 - 160, 400 - 160), (960 - 160, 400 + 160),(255, 255, 150) ,4)
 cv2.line(canvas3, (960 - 160, 400 - 160), (960 + 160, 400 - 160),(255, 255, 150) ,4)
 cv2.line(canvas3, (960 + 160, 400 + 160), (960 - 160, 400 + 160),(255, 255, 150) ,4)
 cv2.line(canvas3, (960 + 160, 400 + 160), (960 + 160, 400 - 160),(255, 255, 150) ,4)
+# mraker for knob
 for i in range(24):
     cv2.line(canvas3, (320 + int(120 * np.sin(np.pi * i / 12)), 400 + int(120 * np.cos(np.pi * i / 12))), (320 + int(135 * np.sin(np.pi * i / 12)), 400 + int(135 * np.cos(np.pi * i / 12))), (255, 150, 255) ,4)
 
+# set the window full screen
 out_win = "output_style_full_screen"
 cv2.namedWindow(out_win, cv2.WINDOW_NORMAL)
 cv2.setWindowProperty(out_win, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+# open the serial port on Pi
 ser = serial.Serial('/dev/ttyS0', 115200, timeout=1)
-state = 2
+
+# init with demo 0
+state = 0
+
+# loop
 while True:
     x, y = pag.position()
+
+    # demo 1 logic
     if state == 0:
         img = canvas.copy()
         t = x
@@ -51,6 +70,8 @@ while True:
             state = 2
         elif key == 27:
             break
+
+    # demo 2 logic
     elif state == 1:
         img = canvas2.copy()
         t = math.atan2(400-y, x-640)
@@ -76,8 +97,10 @@ while True:
             state = 2
         elif key == 27:
             break
+    
+    # demo 3 logic
     elif state == 2:
-        img = canvas3.copy()
+        img = canvas3.copy()s
         t = math.atan2(400-y, x-320)
         if t > 0:
             t = int(12 * (t + np.pi / 24)  / np.pi) * np.pi / 12
