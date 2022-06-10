@@ -47,8 +47,8 @@ while True:
             state = 0
         elif key == 115:
             state = 1
-        # elif key == 100:
-        #     state = 2
+        elif key == 100:
+            state = 2
         elif key == 27:
             break
     elif state == 1:
@@ -64,7 +64,7 @@ while True:
             t = int(12 * (t - np.pi / 24)  / np.pi) * np.pi / 12
         a, b = 640 + int(200 * np.cos(t)), 400 - int(200 * np.sin(t))
         cv2.arrowedLine(img, (640 + int(150 * np.cos(t)), 400 - int(150 * np.sin(t))), (640 + int(190 * np.cos(t)), 400 - int(190 * np.sin(t))), (255, 255, 150) ,6, 0, 0, 0.5)
-        posStr = 'k' + str(a).rjust(4)+' '+str(b).rjust(4) # + ' 0640 0400'
+        posStr = 'k' + str(a).rjust(4)+' '+str(b).rjust(4) + ' 0640 0400'
         ser.write(bytes(posStr, 'utf-8'))
         cv2.imshow(out_win, img)
         key = cv2.waitKey(1)
@@ -72,39 +72,39 @@ while True:
             state = 0
         elif key == 115:
             state = 1
-        # elif key == 100:
-        #     state = 2
+        elif key == 100:
+            state = 2
         elif key == 27:
             break
-    # elif state == 2:
-    #     img = canvas3.copy()
-    #     t = math.atan2(400-y, x-320)
-    #     if t > 0:
-    #         t = int(12 * (t + np.pi / 24)  / np.pi) * np.pi / 12
-    #     else:
-    #         t = int(12 * (t - np.pi / 24)  / np.pi) * np.pi / 12
-    #     a, b = 320 + int(150 * np.cos(t)), 400 - int(150 * np.sin(t))
-    #     cv2.arrowedLine(img, (320 + int(100 * np.cos(t)), 400 - int(100 * np.sin(t))), (320 + int(140 * np.cos(t)), 400 - int(140 * np.sin(t))), (255, 255, 150) ,6, 0, 0, 0.5)
-    #     c ,d = 0, 0
-    #     if -np.pi / 4 <= t < np.pi / 4:
-    #         c ,d = 1120 , 400 - int(math.tan(t) * 160)
-    #     elif -np.pi * 3 / 4 <= t < -np.pi / 4:
-    #         c ,d = 960 + int(math.tan(t + np.pi / 2) * 160), 560
-    #     elif  np.pi / 4 <= t < np.pi * 3 / 4:
-    #         c, d = 960 - int(math.tan(t - np.pi / 2) * 160) , 240
-    #     else:
-    #         c, d = 800,  400 + int(math.tan(t) * 160)
+    elif state == 2:
+        img = canvas3.copy()
+        t = math.atan2(400-y, x-320)
+        if t > 0:
+            t = int(12 * (t + np.pi / 24)  / np.pi) * np.pi / 12
+        else:
+            t = int(12 * (t - np.pi / 24)  / np.pi) * np.pi / 12
+        a, b = 320 + int(150 * np.cos(t)), 400 - int(150 * np.sin(t))
+        cv2.arrowedLine(img, (320 + int(100 * np.cos(t)), 400 - int(100 * np.sin(t))), (320 + int(140 * np.cos(t)), 400 - int(140 * np.sin(t))), (255, 255, 150) ,6, 0, 0, 0.5)
+        c ,d = 0, 0
+        if -np.pi / 4 <= t < np.pi / 4:
+            c ,d = 1120 , 400 - int(math.tan(t) * 160)
+        elif -np.pi * 3 / 4 <= t < -np.pi / 4:
+            c ,d = 960 + int(math.tan(t + np.pi / 2) * 160), 560
+        elif  np.pi / 4 <= t < np.pi * 3 / 4:
+            c, d = 960 - int(math.tan(t - np.pi / 2) * 160) , 240
+        else:
+            c, d = 800,  400 + int(math.tan(t) * 160)
 
-    #     cv2.circle(img, (c, d), 12, (255, 255, 255), 12)
-    #     posStr = 'k' + str(a).rjust(4)+' '+str(b).rjust(4) + ' ' +  str(c).rjust(4)+' '+str(d).rjust(4) 
-    #     ser.write(bytes(posStr, 'utf-8'))
-    #     cv2.imshow(out_win, img)
-    #     key = cv2.waitKey(1)
-    #     if key == 97:
-    #         state = 0
-    #     elif key == 115:
-    #         state = 1
-    #     elif key == 100:
-    #         state = 2
-    #     elif key == 27:
-    #         break
+        cv2.circle(img, (c, d), 12, (255, 255, 255), 12)
+        posStr = 'k' + str(a).rjust(4)+' '+str(b).rjust(4) + ' ' +  str(c).rjust(4)+' '+str(d).rjust(4) 
+        ser.write(bytes(posStr, 'utf-8'))
+        cv2.imshow(out_win, img)
+        key = cv2.waitKey(1)
+        if key == 97:
+            state = 0
+        elif key == 115:
+            state = 1
+        elif key == 100:
+            state = 2
+        elif key == 27:
+            break
